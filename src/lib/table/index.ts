@@ -8,11 +8,7 @@ export function genDomString(tree: Tree) {
 }
 
 function genDom(tree: Tree, node: Node, addExpander?: boolean): H {
-  // if node is the miss value corresponding to the key in the object in the array. For example:
-  //
-  //   [{"a":1, "b":2}, {"a":1}]
-  //
-  // "b" is miss value for the second object in the array, so it's value node is "miss".
+  // if node is the miss value corresponding to the key in the object in the array
   if (node === undefined) {
     return h("span", "miss").class("tbl-val", "text-hl-empty");
   }
@@ -26,19 +22,39 @@ function genDom(tree: Tree, node: Node, addExpander?: boolean): H {
       addExpander && el.child(genExpander(genExpanderId(id)));
       return el.child((node.type === "array" ? genArrayDom : genObjectDom)(tree, node).id(id));
     } else {
+      const typeClass = node.type === "array" ? "text-hl-array" : "text-hl-object";
       return h("span", node.type === "object" ? "{}" : "[]")
-        .class("tbl-val", "text-hl-empty")
+        .class("tbl-val", typeClass)
         .id(id);
     }
   }
 
   // if node is literal value
   if (node.type === "string") {
-    return h("span", node.value || '""')
-      .class("tbl-val", node.value ? "text-hl-string" : "text-hl-empty")
+    if (node.value) {
+      // Check if the string is a date
+      const isDate = !isNaN(Date.parse(node.value));
+      const typeClass = isDate ? "text-hl-date" : "text-hl-string";
+      return h("span", node.value)
+        .class("tbl-val", typeClass)
+        .id(id);
+    } else {
+      return h("span", '""')
+        .class("tbl-val", "text-hl-empty")
+        .id(id);
+    }
+  } else if (node.type === "boolean") {
+    return h("span", getRawValue(node)!)
+      .class("tbl-val", "text-hl-boolean")
+      .id(id);
+  } else if (node.type === "null") {
+    return h("span", "null")
+      .class("tbl-val", "text-hl-null")
       .id(id);
   } else {
-    return h("span", getRawValue(node)!).class("tbl-val", `text-hl-${node.type}`).id(id);
+    return h("span", getRawValue(node)!)
+      .class("tbl-val", `text-hl-${node.type}`)
+      .id(id);
   }
 }
 

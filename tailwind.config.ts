@@ -13,6 +13,10 @@ const config = {
     "text-hl-boolean",
     "text-hl-null",
     "text-hl-empty",
+    "text-hl-object",
+    "text-hl-array",
+    "text-hl-date",
+    "text-hl-undefined"
   ],
   theme: {
     container: {

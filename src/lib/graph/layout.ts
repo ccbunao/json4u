@@ -222,15 +222,25 @@ export function genValueAttrs(node: Node) {
   let text = getRawValue(node)!;
 
   if (isIterable(node)) {
-    classSuffix = hasChildren(node) ? "empty" : "null";
+    classSuffix = node.type === "array" ? "array" : "object";
     text = node.type === "array" ? "[]" : "{}";
   } else if (node.type === "string") {
     if (node.value) {
+      // Check if the string is a date
+      if (!isNaN(Date.parse(node.value))) {
+        classSuffix = "date";
+      }
       text = node.value;
     } else {
-      classSuffix = "null";
+      classSuffix = "empty";
       text = '""';
     }
+  } else if (node.type === "boolean") {
+    classSuffix = "boolean";
+  } else if (node.type === "null") {
+    classSuffix = "null";
+  } else if (node.type === "undefined") {
+    classSuffix = "undefined";
   }
 
   return { className: `text-hl-${classSuffix}`, text };

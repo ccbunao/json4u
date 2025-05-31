@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { type Href } from "@/components/LinkButton";
-import GitHub from "@/components/icons/GitHub";
+// import GitHub from "@/components/icons/GitHub";
 import Logo from "@/components/icons/Logo";
 import Twitter from "@/components/icons/Twitter";
 import Weibo from "@/components/icons/Weibo";
@@ -11,14 +11,14 @@ import { useTranslations } from "next-intl";
 
 export default function Footer() {
   const t = useTranslations("Home");
-  const items: FooterLinkProps[] = [
-    { href: "https://www.trustpilot.com/review/json4u.com", title: t("Give a rating") },
-    { href: "https://github.com/loggerhead/json4u/issues/new", title: t("Feedback") },
-    isCN
-      ? { href: "https://weibo.com/loggerhead", title: <Weibo className="icon" /> }
-      : { href: "https://x.com/1oggerhead", title: <Twitter className="icon" /> },
-    { href: "https://github.com/loggerhead/json4u", title: <GitHub className="icon" /> },
-  ];
+  // const items: FooterLinkProps[] = [
+  //   { href: "https://www.trustpilot.com/review/json4u.com", title: t("Give a rating") },
+  //   { href: "https://github.com/loggerhead/json4u/issues/new", title: t("Feedback") },
+  //   isCN
+  //     ? { href: "https://weibo.com/loggerhead", title: <Weibo className="icon" /> }
+  //     : { href: "https://x.com/1oggerhead", title: <Twitter className="icon" /> },
+  //   { href: "https://github.com/loggerhead/json4u", title: <GitHub className="icon" /> },
+  // ];
 
   return (
     <footer className="flex h-12 items-center justify-center w-full border-t">
@@ -27,12 +27,12 @@ export default function Footer() {
           <Logo className="w-[20px] h-[20px] text-slate-500" />
           <span>{"© 2024 JSON For You"}</span>
         </div>
-        <Legal />
-        <FriendLinks />
+        {/* <Legal /> */}
+        {/* <FriendLinks /> */}
         <div className="ml-auto lg:flex hidden gap-8">
-          {items.map((item, i) => (
+          {/* {items.map((item, i) => (
             <FooterLink key={i} title={item.title} href={item.href} />
-          ))}
+          ))} */}
         </div>
       </div>
     </footer>

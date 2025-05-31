@@ -61,9 +61,14 @@
     --hl-key: #a31515;
     --hl-string: #0451a5;
     --hl-number: #098658;
+    --hl-boolean: #0000ff;
     --hl-null: #d1004d;
     --hl-empty: #0000004d;
     --hl-index: #0000004d;
+    --hl-object: #795e26;
+    --hl-array: #267759;
+    --hl-date: #9b26b6;
+    --hl-undefined: #666666;
 
     --parse-error: #cb2a2f;
     --parse-error-foreground: #ff9b9533;
